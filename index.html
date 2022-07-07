@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+          #navbar{
+                height: 60px; width: 100%;
+                background-color: black;
+                display: flex; margin-left: -20px;
+          }
+          #navbar>h1{
+              font-family: sans-serif;font-weight: 200;
+            font-size: 16px; color: aliceblue; margin-left: 50px;
+          }
+          #navbar>img{
+             width: 100px;height: 100px; margin-left: 50px;
+             box-shadow: rgba(0,0,0,0.30) 0px 9px 28px;
+          }
+          #runn{
+           margin: 1rem 0rem 0rem 18rem;
+          }
+          #menu{ font-weight: 600; position: absolute;
+              margin: -7.5rem 0rem 5rem 5rem; 
+          }
+          #menu >input{ 
+              height: 15px;width: 15px;
+              margin-bottom: 9px;color: rgb(122, 29, 137);
+          }
+          #menu >label{ 
+              font-size: 18px;margin-bottom: 10px;color: rgb(83, 14, 102);
+          }
+          #menu>button{
+               background-color: rgb(137, 20, 128);font-weight: 700;
+               width: 120px;height: 30px;border: 0;color: aliceblue;
+               box-shadow: rgba(0,0,0,0.30) 0px 9px 28px;
+            }
+            #menu>button:hover{
+                transform: scale(.9);
+                background-color: rgb(92, 29, 29);
+            }
+
+          #main > div > h1{
+            margin: 5rem 0rem 0rem 4rem; color: rgb(83, 14, 102);
+          }
+          #bag{
+              text-align: center;position:relative;
+            margin: -10rem 0rem 0rem 10rem;
+
+          }
+          img{
+        
+               box-shadow: rgba(0,0,0,0.30) 0px 9px 28px;
+          }
+          #bag>audio{
+              margin-top: -150px;
+              margin-left: 70%; 
+            
+          }
+          #bag2{
+            font-weight: 900; font-size: 20px;
+            margin: auto; 
+            margin-top:5%;margin-left: 5%;
+            text-align: center;
+          }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+           <img src="https://www.mcdonaldsindia.com/images/mcd_logo.jpg" alt=""> <h1>MENU</h1><h1>NUTRITION</h1><h1>FARM TO FORK</h1><h1>CAREERS</h1><h1>CONVENIENCE</h1><h1>KIDS ZONE</h1><h1>REAL ESTATE</h1><h1>ABOUT US</h1><h1>REACH US</h1>
+    </div>
+    <div id="bag2"></div>
+
+     <div id="main">
+         <div> 
+             <h1>WelCome To Mc'Donalds </h1> 
+             <img id="runn" src="https://media3.giphy.com/media/d1Y4hycJBVTC8/200w.webp?cid=ecf05e47ep3hgxvb7zvp01phiee27nekft12qogvpx5nha3e&rid=200w.webp&ct=g" alt="">
+         </div>
+        
+     </div>
+     
+
+      <div id="menu">
+           <input type="checkbox" id="kabab" value="Chicken Kabab">
+        <label for="kabab"> Chicken Kabab</label><br>
+
+        <input type="checkbox" id="lolipop" name="lolipop" value="Chicken Lolipop ">
+        <label for="lolipop"> Chicken Lolipop</label><br>
+
+        <input type="checkbox" id="fried" name="fried" value="Fried Chicken">
+        <label for="fried"> Fried Chicken</label><br>
+
+        <input type="checkbox" id="momo" name="momos" value="Chicken Momos">
+        <label for="momo"> Chicken Momos</label><br><br>
+        <button>Order Food</button>
+
+        <p id="para"></p>
+
+      </div>
+    
+      <div id="bag">
+            <div id="image"></div>
+            <audio  src="Inkem Inkem Inkem Kaavaale.mp3" controls autoplay></audio>
+      </div>
+       
+
+   
+    
+</body>
+</html>
+<script>
+
+         
+  let allDishes= document.querySelectorAll('input[type=checkbox]');
+  let imgArr=["https://media3.giphy.com/media/Pn6CZk8b8sTeMSThHS/giphy.gif?cid=ecf05e47smoslxkuzy9z8b23glco7i1i9hpmvizxhgg5dmiq&rid=giphy.gif&ct=g",
+  "https://media2.giphy.com/media/KeEBKmTjSXJUDREHkj/giphy.gif?cid=ecf05e47s4upufcoui136yvry6mbs91oishawcjwx6xcv7gn&rid=giphy.gif&ct=g",
+  "https://media3.giphy.com/media/rKwIy14z0hXmE/giphy.gif?cid=ecf05e47eo3qj1kdrpdc3tis2io9n5iayfawm0elmq4lwrt2&rid=giphy.gif&ct=g",
+  "https://media2.giphy.com/media/1wqGa32N4l6UJfEkoX/giphy.gif?cid=ecf05e47p4xqg16ah8w4v0yvze0edxftus7tubfmy89ffv16&rid=giphy.gif&ct=g",
+
+]
+let foodIdArray=[12121,21212,32321,98994,89885]
+let menu=[];
+
+for(let i=0;i<allDishes.length;i++){
+    let item={
+        name:allDishes[i].value,
+        img:imgArr[i],
+        foodId:foodIdArray[i],
+    }
+    menu.push(item);
+}
+console.log(menu)
+
+  localStorage.setItem("menu",JSON.stringify(menu));
+
+
+  let orderFood=document.querySelector("button");
+  orderFood.addEventListener('click',function(){
+      let orderDishes=document.querySelectorAll('input[type=checkbox]:checked');
+      let menu= JSON.parse(localStorage.getItem('menu'));
+      let foodData=[];
+      let count=5; 
+  
+        let id=setInterval(()=>{
+          count--;
+          let p=document.getElementById('para');
+          p.textContent=null;
+          p.textContent=`${count} seconds left to prepare your order`;
+          if(count===0){
+              clearInterval(id);
+              p.textContent=null;
+              p.textContent="Your Order is Ready..Take it Order From Counter!"
+          }
+      },1000)
+  
+    let foodPromise= new Promise((resolve,reject)=>{
+         setTimeout(()=>{
+              menu.map((ele)=>{
+                  for(let i=0;i<orderDishes.length;i++){
+                        if(ele.name===orderDishes[i].value){
+                            console.log(ele.foodId)
+
+                            let p0=document.createElement('p');
+                            p0.innerText=`Food Id:${ele.foodId}`
+                           
+                            let image=document.getElementById('image')
+                            let img=document.createElement('img');
+                            img.src=ele.img;
+                             
+                            let name=document.createElement('h1')
+                            name.innerText=ele.name;
+                            // let foodid=document.createElement('h1')
+                            // foodid.innerText=ele.foodId;
+                           
+                           
+                            let div1=document.createElement('div');
+                            let div2=document.createElement('div');
+                            div1.append(img,name);
+                            div2.append(p0);
+                            document.querySelector('#bag').append(div1)
+                            document.querySelector('#bag2').append(div2)
+
+                            foodData.push(ele);
+                        }
+                  }
+              })
+              if(foodData.length===0){
+                  reject('Your Order Is Cancel Please try Again!')
+              }else{
+                  resolve();
+              }
+       },5000);
+   })  
+     
+   foodPromise.then((res)=>{
+       console.log('foodDishes:',foodData);
+       console.log('Please Take Your Order From Counter')
+   }).catch((e)=>{
+       console.log('error:',e);
+   })
+ })
+
+    
+   
+</script>
